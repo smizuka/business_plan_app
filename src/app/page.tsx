@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { LoginButton, LogoutButton } from '@/components/AuthenticateButton'
+import  IsLoggedin from '@/components/IsLoggedin'
 
 export default function Home() {
   return (
@@ -12,6 +13,9 @@ export default function Home() {
         <p className="my-5 text-black text-lg font-medium">見込み顧客を獲得するBtoBサイトを制作します</p>
         <button className="my-5 bg-red-400 hover:bg-red-600 text-white font-bold text-lg py-2 px-4 rounded-full">無料価格でダウンロード</button>
         <button className="my-5 bg-transparent hover:bg-red-400 text-red-400 font-semibold hover:text-white text-lg py-2 px-4 border border-red-400 hover:border-transparent  rounded-full">BtoBサイト制作を相談</button>
+        <IsLoggedin/>
+        <LoginButton/>
+        <LogoutButton/>
       </main>
       <footer className="h-[250px] bg-sky-200">
 
