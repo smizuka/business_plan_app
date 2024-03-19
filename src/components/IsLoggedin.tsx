@@ -7,7 +7,7 @@ export default function isLoggedIn() {
   console.log(session);
 
   if (!session) {
-    return <p>ログインしていません。</p>
+    return (<p className="text-red-300">ログインしていません。</p>)
   }
 
   return (
