@@ -19,7 +19,7 @@ enum Status {
 }
 
 enum Provider {
-  GOOLE
+  GOOGLE
   LINE
   AMAZON
   APPLE
