@@ -4,6 +4,8 @@ import React from 'react'
 export default function isLoggedIn() {
   const { data: session } = useSession()
 
+  console.log(session);
+
   if (!session) {
     return <p>ログインしていません。</p>
   }

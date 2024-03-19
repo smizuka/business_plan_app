@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+enum Provider {
+  GOOLE
+  LINE
+  AMAZON
+  APPLE
+  MICROSOFT
+}
+
+model Profile {
+  id           Int     @id @default(autoincrement())
+  bio          String
+  thumbnailUrl String? @map("thumbnail_url")
+  user         User    @relation(fields: [userId], references: [id])
+  userId       Int     @unique
+}
+
+model User {
+  id            Int           @id @default(autoincrement())
+  email         String        @unique
+  name          String?
+  nickName      String?       @map("nick_name")
+  company       String?
+  status        Status        @default(ACTIVE)
+  profile       Profile?
+  provider      Provider
+  questionaries Questionary[]
+  threads       Thread[]
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @default(now()) @updatedAt @map("updated_at")
+  lastLogin     DateTime      @default(now()) @map("last_login")
+}
+
+model Questionary {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  answer1   Int?
+  answer2   Int?
+  answer3   Int?
+  answer4   Int?
+  grantName String?  @map("grant_name")
+  createdAt DateTime @default(now()) @map("created_at")
+  thread    Thread?
+}
+
+model AiModel {
+  id        Int      @id @default(autoincrement())
+  modelName String   @map("model_name")
+  version   String?
+  filePath  String?  @map("file_path")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  threads   Thread[]
+}
+
+model Thread {
+  id                 Int         @id @default(autoincrement())
+  user               User        @relation(fields: [userId], references: [id])
+  userId             Int
+  aiModel            AiModel     @relation(fields: [aiModelId], references: [id])
+  aiModelId          Int
+  questionary        Questionary @relation(fields: [questionaryId], references: [id])
+  questionaryId      Int         @unique
+  messages           Message[]
+  user_message_count Int         @default(0)
+  status             Status      @default(ACTIVE)
+  createdAt          DateTime    @default(now()) @map("created_at")
+  updatedAt          DateTime    @default(now()) @updatedAt @map("updated_at")
+}
+
+enum Role {
+  USER
+  AI
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  thread    Thread   @relation(fields: [threadId], references: [id])
+  threadId  Int
+  role      Role?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+}
