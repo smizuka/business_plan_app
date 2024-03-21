@@ -17,13 +17,8 @@ export default function DashboardLayout({
         <div className="h-full px-3 py-4 overflow-y-auto bg-cyan-100 dark:bg-cyan-200">
             <ul className="space-y-2 font-medium">
                 <li>
-                    <a href="/" className="flex items-center p-2 text-gray-500 hover:text-white rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-400 group">
-                        <span className="text-xl font-bold text-gray-500 dark:group-hover:text-white">サイト トップ</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/dashboard" className="flex items-center p-2 text-gray-500 hover:text-white rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-400 group">
-                        <span className="text-xl font-bold text-gray-500 dark:group-hover:text-white">ダッシュボード トップ</span>
+                    <a href="/dashboard" className="flex items-center justify-center p-2 rounded-lg bg-gray-400 group">
+                        <span className="text-xl font-bold text-white">ダッシュボードTOP</span>
                     </a>
                 </li>
                 <li>
@@ -64,6 +59,14 @@ export default function DashboardLayout({
                     <path fillRule="evenodd" d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z" clipRule="evenodd"/>
                     </svg>
                     <span className="flex-1 ms-3 whitespace-nowrap text-xl font-bold text-gray-500 dark:group-hover:text-white">マイページ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/mypage" className="flex items-center p-2 text-gray-500 hover:text-white rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-400 group">
+                    <svg className="w-6 h-6 dark:text-gray-500 group-hover:text-white dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M5.027 10.9a8.729 8.729 0 0 1 6.422-3.62v-1.2A2.061 2.061 0 0 1 12.61 4.2a1.986 1.986 0 0 1 2.104.23l5.491 4.308a2.11 2.11 0 0 1 .588 2.566 2.109 2.109 0 0 1-.588.734l-5.489 4.308a1.983 1.983 0 0 1-2.104.228 2.065 2.065 0 0 1-1.16-1.876v-.942c-5.33 1.284-6.212 5.251-6.25 5.441a1 1 0 0 1-.923.806h-.06a1.003 1.003 0 0 1-.955-.7A10.221 10.221 0 0 1 5.027 10.9Z"/>
+                    </svg>
+                    <span className="flex-1 ms-3 whitespace-nowrap text-xl font-bold text-gray-500 dark:group-hover:text-white">サイトトップ</span>
                     </a>
                 </li>
                 <li>
