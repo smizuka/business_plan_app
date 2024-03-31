@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 // Propsの型定義
 interface ZoomAndDraggableImageProps {
@@ -113,14 +114,12 @@ const ZoomAndDraggableImage: React.FC<ZoomAndDraggableImageProps> = ({ src, alt 
             }}
             onMouseDown={handleMouseDown}
         >
-            <img
+            <Image
                 src={src}
                 alt={alt}
-                style={{
-                    width: '100%', // 画像をdivの幅に合わせる
-                    height: '100%', // 画像をdivの高さに合わせる
-                    objectFit: 'cover', // 画像のアスペクト比を保ちつつ、コンテナにフィットさせる
-                }}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority
             />
         </div>
         <div style={{ position: 'absolute', right: 0, bottom: 0, display: 'flex' }}>
