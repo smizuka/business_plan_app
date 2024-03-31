@@ -28,32 +28,65 @@ enum Provider {
 
 model Profile {
   id           Int     @id @default(autoincrement())
-  bio          String
+  userId       String  @unique
+  bio          String?
   thumbnailUrl String? @map("thumbnail_url")
-  user         User    @relation(fields: [userId], references: [id])
-  userId       Int     @unique
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id            Int           @id @default(autoincrement())
-  email         String        @unique
+  id            String        @id @default(cuid())
   name          String?
-  nickName      String?       @map("nick_name")
-  company       String?
+  email         String?       @unique
+  emailVerified DateTime?
+  image         String?
   status        Status        @default(ACTIVE)
   profile       Profile?
-  provider      Provider
   questionaries Questionary[]
   threads       Thread[]
-  createdAt     DateTime      @default(now()) @map("created_at")
-  updatedAt     DateTime      @default(now()) @updatedAt @map("updated_at")
-  lastLogin     DateTime      @default(now()) @map("last_login")
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 model Questionary {
   id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+  userId    String
   answer1   Int?
   answer2   Int?
   answer3   Int?
@@ -61,6 +94,8 @@ model Questionary {
   grantName String?  @map("grant_name")
   createdAt DateTime @default(now()) @map("created_at")
   thread    Thread?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model AiModel {
@@ -74,18 +109,19 @@ model AiModel {
 }
 
 model Thread {
-  id                 Int         @id @default(autoincrement())
-  user               User        @relation(fields: [userId], references: [id])
-  userId             Int
-  aiModel            AiModel     @relation(fields: [aiModelId], references: [id])
+  id                 Int       @id @default(autoincrement())
+  userId             String
   aiModelId          Int
-  questionary        Questionary @relation(fields: [questionaryId], references: [id])
-  questionaryId      Int         @unique
+  questionaryId      Int       @unique
   messages           Message[]
-  user_message_count Int         @default(0)
-  status             Status      @default(ACTIVE)
-  createdAt          DateTime    @default(now()) @map("created_at")
-  updatedAt          DateTime    @default(now()) @updatedAt @map("updated_at")
+  user_message_count Int       @default(0)
+  status             Status    @default(ACTIVE)
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  aiModel     AiModel     @relation(fields: [aiModelId], references: [id])
+  questionary Questionary @relation(fields: [questionaryId], references: [id])
 }
 
 enum Role {
@@ -95,10 +131,11 @@ enum Role {
 
 model Message {
   id        Int      @id @default(autoincrement())
-  thread    Thread   @relation(fields: [threadId], references: [id])
   threadId  Int
   role      Role?
   createdAt DateTime @default(now()) @map("created_at")
+
+  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
 
   @@index([createdAt])
 }

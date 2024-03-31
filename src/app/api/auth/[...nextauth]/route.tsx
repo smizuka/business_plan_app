@@ -1,8 +1,15 @@
-import NextAuth from 'next-auth'
+import NextAuth, { AuthOptions } from "next-auth";
 import CognitoProvider from 'next-auth/providers/cognito'
+// import { PrismaClient } from "@prisma/client";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import prisma from '@/app/lib/prisma'
 
-const handler = NextAuth({
+export const authOptions: AuthOptions  = {
+  adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt"
+  },
   providers: [
     CognitoProvider({
       clientId: process.env.COGNITO_CLIENT_ID ?? '',
@@ -10,8 +17,9 @@ const handler = NextAuth({
       issuer: process.env.COGNITO_ISSUER ?? '',
       checks: 'nonce',
     }),
-  ],
-})
+  ]
+}
 
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST }
