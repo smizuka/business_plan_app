@@ -1,6 +1,6 @@
 'use client'
 import { LoginButton, LogoutButton } from '@/components/AuthenticateButton'
-import  IsLoggedin from '@/components/IsLoggedin'
+import  IsLoggedIn from '@/components/IsLoggedIn'
 import Link from 'next/link'
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react'
@@ -22,7 +22,7 @@ export default function Home() {
       <header className="h-[100px] bg-gray-200"></header>
       <main className="bg-white flex flex-col items-center justify-center h-[500px]">
         <div className="py-5">
-          <IsLoggedin/>
+          <IsLoggedIn/>
         </div>
         <Link className="bg-sky-400 hover:bg-sky-600 text-white font-bold text-lg rounded-full py-2 px-4 ralative" href="/dashboard" onClick={handleClick}>
           Dashboardへ
@@ -55,3 +55,15 @@ export default function Home() {
     </>
   );
 }
+
+// function IsLoggedIn(session) {
+//   if (!session) {
+//     return (<p className="text-red-300">ログインしていません。</p>)
+//   }
+
+//   return (
+//     <div className="text-red-300">
+//       {session.user ? `${session.user.email}としてログインしています。`  : '読み込み中...'}
+//     </div>
+//   )
+// }
