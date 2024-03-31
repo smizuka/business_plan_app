@@ -36,7 +36,7 @@ export default function Page() {
         const eligible_by_question1: string[] = GRANT_CATEGORIES_1[question1Value];
         // # 問２ 常勤の従業員数
         const eligible_by_question2: string[] = GRANT_CATEGORIES_2[question2Value];
-        const eligible_by_question4: string[] = GRANT_CATEGORIES_4[String(question3Value+1)][String(question4Value+1)];
+        const eligible_by_question4: string[] = GRANT_CATEGORIES_4[String(question3Value+1)][String(question4Value+1)] || [];
 
         // 業種と常勤従業員数から補助金の種類から該当する補助金を選定する
         const eligible_grants: string[] = eligible_by_question1.filter((element: string) => eligible_by_question2.includes(element));
@@ -64,9 +64,8 @@ export default function Page() {
                         Q1. 業種で該当するものを選択してください。
                     </p>
                     {categories.map((category, index) => (
-                        <div className="flex items-center">
+                        <div key={`question-1-${index}`} className="flex items-center">
                             <input
-                                key={`question-1-key-${index}`}
                                 id={`question-1-id-${index}`}
                                 type="radio"
                                 name="question1"
@@ -75,7 +74,7 @@ export default function Page() {
                                 onChange={handleRadioButtonChange}
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                 />
-                            <label key={`question-1-label-${index}`} htmlFor={`question-1-id-${index}`} className="ms-2 text-sm font-medium dark:text-black">{category}</label>
+                            <label htmlFor={`question-1-id-${index}`} className="ms-2 text-sm font-medium dark:text-black">{category}</label>
                         </div>
                     ))}
                 </div>
@@ -86,9 +85,8 @@ export default function Page() {
                     Q2. 常勤の従業員数で該当するものを選択してください。
                     </p>
                     {staffs.map((staff, index) => (
-                        <div className="flex items-center">
-                            <input 
-                                key={`question-2-key-${index}`}
+                        <div key={`question-2-${index}`} className="flex items-center">
+                            <input
                                 id={`question-2-id-${index}`}
                                 type="radio"
                                 name="question2"
@@ -97,7 +95,7 @@ export default function Page() {
                                 onChange={handleRadioButtonChange}
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                 />
-                            <label key={`question-2-label-${index}`} htmlFor={`question-2-id-${index}`} className="ms-2 text-sm font-medium dark:text-black">{staff}</label>
+                            <label htmlFor={`question-2-id-${index}`} className="ms-2 text-sm font-medium dark:text-black">{staff}</label>
                         </div>
                     ))}
                 </div>
@@ -108,9 +106,8 @@ export default function Page() {
                     Q3. 以下の選択肢からやりたい事（大分類）を選択してください。
                     </p>
                     {mainCategories.map((mainCategory, index) => (
-                        <div className="flex items-center">
-                            <input 
-                                key={`question-3-key-${index}`} 
+                        <div key={`question-3-key-${index}`} className="flex items-center">
+                            <input
                                 id={`question-3-id-${index}`}
                                 type="radio"
                                 name="question3"
@@ -119,7 +116,7 @@ export default function Page() {
                                 onChange={handleRadioButtonChange}
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
                                 />
-                            <label key={`question-3-label-${index}`} htmlFor={`question-3-id-${index}`} className="ms-2 text-sm font-medium dark:text-black">{mainCategory}</label>
+                            <label htmlFor={`question-3-id-${index}`} className="ms-2 text-sm font-medium dark:text-black">{mainCategory}</label>
                         </div>
                     ))}
                 </div>
@@ -130,9 +127,8 @@ export default function Page() {
                     Q4. 以下の選択肢からやりたい事（小分類）を選択してください。
                     </p>
                     {subCateogories[question3Value].map((subCategory, index) => (
-                        <div className="flex items-center">
-                            <input 
-                                key={`question-4-key-${index}`}
+                        <div key={`question-4-key-${index}`} className="flex items-center">
+                            <input
                                 id={`question-4-id-${index}`}
                                 type="radio"
                                 name="question4"
@@ -141,7 +137,7 @@ export default function Page() {
                                 onChange={handleRadioButtonChange}
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
                                 />
-                            <label key={`question-4-label-${index}`} htmlFor={`question-4-id-${index}`} className="ms-2 text-sm font-medium dark:text-black">{subCategory}</label>
+                            <label htmlFor={`question-4-id-${index}`} className="ms-2 text-sm font-medium dark:text-black">{subCategory}</label>
                         </div>
                     ))}
                 </div>
