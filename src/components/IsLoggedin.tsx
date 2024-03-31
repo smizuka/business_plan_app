@@ -2,10 +2,7 @@
 import { useSession } from 'next-auth/react'
 import React from 'react'
 export default function isLoggedIn() {
-  const { data: session } = useSession()
-
-  console.log(session);
-
+  const { data: session } = useSession();
   if (!session) {
     return (<p className="text-red-300">ログインしていません。</p>)
   }
