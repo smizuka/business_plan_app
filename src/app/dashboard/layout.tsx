@@ -77,6 +77,11 @@ export default function DashboardLayout({
                     <span className="flex-1 ms-3 whitespace-nowrap text-xl font-bold text-gray-500 dark:group-hover:text-white">ログアウト</span>
                     </a>
                 </li>
+                <li>
+                    <a href="#" className="flex items-center p-2 text-gray-500 hover:text-white rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-gray-400 group">
+                        <span className="flex-1 ms-3 whitespace-nowrap text-xl font-bold text-gray-500 dark:group-hover:text-white">※ 当サービスについて</span>
+                    </a>
+                </li>
             </ul>
         </div>
         </aside>
