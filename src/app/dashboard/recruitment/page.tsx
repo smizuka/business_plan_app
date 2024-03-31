@@ -9,10 +9,10 @@ export default function Page() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 my-3 gap-3">
                 {Array.from({ length: 9 }, (_, index) => (
-                    <div className="grid-item col-span-1">
+                    <div key={`recruitment-${index}`}className="grid-item col-span-1">
                         <div className="max-w-md p-2 bg-white border border-gray-500 rounded-lg shadow-lg">
                             <a href="#">
-                                <Image src="/office.png" alt="Logo" width={500} height={300} />
+                                <Image src="/office.png" alt="Logo" width={500} height={300} priority/>
                             </a>
                             <div className="p-5">
                                 <a href="#">
