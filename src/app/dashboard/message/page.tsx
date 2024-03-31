@@ -6,7 +6,7 @@ export default function Page() {
             <p className="py-2 flex items-center justify-left border-b-2 border-gray-300 text-black text-4xl">*****補助金のAI</p>
             <div className="grid grid-cols-1 my-4 flex-grow">
                 {Array.from({ length: 5 }, (_, index) => (
-                    <div className="flex flex-col">
+                    <div key={`message-${index}`} className="flex flex-col">
                         <div className="flex items-center">
                             <div className="bg-gray-200 rounded-full h-8 w-8 flex items-center justify-center">
                             </div>           
