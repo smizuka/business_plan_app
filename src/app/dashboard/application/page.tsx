@@ -1,5 +1,7 @@
 'use client'
 import Image from 'next/image';
+import React, { useState } from 'react';
+import ZoomAndDraggableImage from '@/components/ZoomAndDraggableImage'
 
 export default function Page() {
     return (
@@ -25,7 +27,7 @@ export default function Page() {
                 <div className="md:col-span-1">
                     <p className="text-black font-bold">※ 赤枠部分にペーストしてください。</p>
                     <div className="flex item-center justify-center">
-                        <Image src="/example-1.png" alt="Logo" width={250} height={325} />
+                        <ZoomAndDraggableImage src="/example-1.png"  alt="会社概要" />
                     </div>
                 </div>
             </div>
@@ -48,7 +50,7 @@ export default function Page() {
                 <div className="md:col-span-1">
                     <p className="text-black font-bold">※ 赤枠部分にペーストしてください。</p>
                     <div className="flex item-center justify-center">
-                        <Image src="/example-1.png" alt="Logo" width={250} height={325} />
+                        <ZoomAndDraggableImage src="/example-1.png"  alt="会社概要" />
                     </div>
                 </div>
             </div>
