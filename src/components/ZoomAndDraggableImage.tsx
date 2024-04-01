@@ -115,15 +115,7 @@ const ZoomAndDraggableImage: React.FC<ZoomAndDraggableImageProps> = ({ src, alt 
 
     return (
         <div
-        style={{
-            overflow: 'hidden',
-            width: '100%', // 画像表示エリアの幅を親要素合わせる
-            height: '500px', // 表示エリアの高さを指定
-            display: 'flex',
-            alignItems: 'center', // 中央に配置
-            justifyContent: 'center', // 中央に配置
-            position: 'relative',
-        }}
+        className="overflow-hidden w-full h-[500px] flex items-center justify-center relative"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseUp}
         onMouseUp={handleMouseUp}
@@ -131,15 +123,11 @@ const ZoomAndDraggableImage: React.FC<ZoomAndDraggableImageProps> = ({ src, alt 
         onTouchCancel={handleTouchEndOrCancel}
         >
         <div
+            className="w-3/4 h-auto absolute mx-auto top-0 bottom-0"
             style={{
                 cursor: dragging ? 'grabbing' : 'grab',
                 transform: `translate(${imageState.offsetX}px, ${imageState.offsetY}px) scale(${imageState.scale})`,
                 transformOrigin: 'center',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                height: '100%',
-                width: '50%',
             }}
             onMouseDown={handleMouseDown}
             onTouchStart={handleTouchStart}
