@@ -1,10 +1,9 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import CognitoProvider from 'next-auth/providers/cognito'
-// import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from '@/app/lib/prisma'
 
-export const authOptions: AuthOptions  = {
+const authOptions: AuthOptions  = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   session: {
