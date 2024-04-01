@@ -69,6 +69,33 @@ const ZoomAndDraggableImage: React.FC<ZoomAndDraggableImageProps> = ({ src, alt 
         setDragging(false);
     };
 
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        e.preventDefault(); // ブラウザのデフォルトのドラッグ動作を無効化
+        setDragging(true);
+        // タッチの位置を取得
+        const touch = e.touches[0];
+        setStartPosition({
+            x: touch.clientX - imageState.offsetX,
+            y: touch.clientY - imageState.offsetY,
+        });
+    };
+
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        if (!dragging) return;
+        // タッチの位置を取得
+        const touch = e.touches[0];
+        setImageState({
+            ...imageState,
+            offsetX: touch.clientX - startPosition.x,
+            offsetY: touch.clientY - startPosition.y,
+        });
+    };
+
+    // タッチ終了またはキャンセル時の処理
+    const handleTouchEndOrCancel = () => {
+        setDragging(false);
+    };
+
     const resetPostion = () => {
         setImageState(prevState => {
             return { ...prevState, offsetX: 0, offsetY: 0 };
@@ -98,8 +125,10 @@ const ZoomAndDraggableImage: React.FC<ZoomAndDraggableImageProps> = ({ src, alt 
             position: 'relative',
         }}
         onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseUp} // マウスがコンポーネントの外に出たときにドラッグを解除
+        onMouseLeave={handleMouseUp}
         onMouseUp={handleMouseUp}
+        onTouchMove={handleTouchMove}
+        onTouchCancel={handleTouchEndOrCancel}
         >
         <div
             style={{
@@ -113,6 +142,7 @@ const ZoomAndDraggableImage: React.FC<ZoomAndDraggableImageProps> = ({ src, alt 
                 width: '50%',
             }}
             onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
         >
             <Image
                 src={src}
