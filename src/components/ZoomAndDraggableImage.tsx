@@ -83,6 +83,7 @@ const ZoomAndDraggableImage: React.FC<ZoomAndDraggableImageProps> = ({ src, alt 
     const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
         if (!dragging) return;
         // タッチの位置を取得
+        e.preventDefault();// ブラウザのデフォルトのスクロールを無効化
         const touch = e.touches[0];
         setImageState({
             ...imageState,
